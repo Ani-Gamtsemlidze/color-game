@@ -64,6 +64,7 @@ for (let i = 0; i < square.length; i++) {
           gameStart = true;
           hardButton.disabled = false;
           easyButton.disabled = false;
+
           reset.innerHTML = "New Colors";
           document.querySelector("h1").style.backgroundColor = "#2c8e99";
         });
