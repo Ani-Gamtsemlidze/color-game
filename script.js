@@ -56,14 +56,25 @@ for (let i = 0; i < square.length; i++) {
       let colorId = this.getAttribute("color-id");
       if (winningColor == colorId) {
         gameStart = false;
+        hardButton.disabled = true;
+        easyButton.disabled = true;
+
         reset.innerHTML = "Play AGAIN";
         reset.addEventListener("click", function () {
           gameStart = true;
+          hardButton.disabled = false;
+          easyButton.disabled = false;
           reset.innerHTML = "New Colors";
           document.querySelector("h1").style.backgroundColor = "#2c8e99";
         });
 
         sameColor(winningColor);
+        // easyButton.addEventListener("click", function () {
+        //   gameStart = false;
+        // });
+        // hardButton.addEventListener("click", function () {
+        //   gameStart = false;
+        // });
       } else {
         square[i].style.backgroundColor = "#232323";
       }
