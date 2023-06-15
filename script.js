@@ -48,13 +48,25 @@ hardButton.addEventListener("click", function () {
   randomColorGenerate(9);
 });
 
+let gameStart = true;
+
 for (let i = 0; i < square.length; i++) {
   square[i].addEventListener("click", function () {
-    let colorId = this.getAttribute("color-id");
-    if (winningColor == colorId) {
-      sameColor(winningColor);
-    } else {
-      square[i].style.backgroundColor = "#232323";
+    if (gameStart) {
+      let colorId = this.getAttribute("color-id");
+      if (winningColor == colorId) {
+        gameStart = false;
+        reset.innerHTML = "Play AGAIN";
+        reset.addEventListener("click", function () {
+          gameStart = true;
+          reset.innerHTML = "New Colors";
+          document.querySelector("h1").style.backgroundColor = "#2c8e99";
+        });
+
+        sameColor(winningColor);
+      } else {
+        square[i].style.backgroundColor = "#232323";
+      }
     }
   });
 }
