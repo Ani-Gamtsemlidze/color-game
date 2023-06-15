@@ -6,14 +6,23 @@ const easyButton = document.querySelector(".easy-mode");
 const hardButton = document.querySelector(".hard-mode");
 const container = document.querySelector("#container");
 
+let winningColor = null;
+
+// generate random colors
 function randomColorGenerate(numberOfBoxes) {
+  let randomNumber = Math.trunc(Math.random() * numberOfBoxes);
   for (let i = 0; i < numberOfBoxes; i++) {
     let randomColor1 = Math.trunc(Math.random() * 255);
     let randomColor2 = Math.trunc(Math.random() * 255);
     let randomColor3 = Math.trunc(Math.random() * 255);
     let rgbColor = `rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`;
-    console.log(rgbColor);
     square[i].style.backgroundColor = rgbColor;
+    square[i].setAttribute("color-id", rgbColor);
+
+    if (randomNumber == i) {
+      winningColor = rgbColor;
+      document.querySelector("#color-display").innerHTML = winningColor;
+    }
   }
 }
 randomColorGenerate(9);
@@ -38,3 +47,22 @@ hardButton.addEventListener("click", function () {
   container.classList.remove("easy");
   randomColorGenerate(9);
 });
+
+for (let i = 0; i < square.length; i++) {
+  square[i].addEventListener("click", function () {
+    let colorId = this.getAttribute("color-id");
+    if (winningColor == colorId) {
+      sameColor(winningColor);
+    } else {
+      square[i].style.backgroundColor = "#232323";
+    }
+  });
+}
+
+function sameColor(winnerColor) {
+  document.querySelector("h1").style.backgroundColor = winnerColor;
+
+  for (let i = 0; i < square.length; i++) {
+    square[i].style.backgroundColor = winnerColor;
+  }
+}
